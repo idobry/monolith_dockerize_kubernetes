@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>{{.Title}}</title>
+		<style>
+			body {
+				font-family: sans-serif;
+			}
+			h1 {
+				background: #4187f0;
+				color: white;
+				height: 60px;
+			}
+			#sidebar {
+				float: left;
+			}
+			.small{
+				height: 50px;
+    			width: 50px;
+				vertical-align: middle;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>{{.Title}}</h1>
+
+		{{block "content" .}}
+		<div id="content">
+			{{.Body}}
+		</div>
+
+		<div id="sidebar">
+			{{block "sidebar" .}}
+			<h2>Browser List:</h2>
+			{{/* The dashes in the following template directives
+			     ensure the generated HTML of this list contains no
+			     extraneous spaces or line breaks. */}}
+			<ul>
+				{{- range .Links}}
+				<li>
+					<div>
+						<a href="{{.URL}}">
+							<img src="{{.Img}}" title="{{.Title}}" alt="{{.Title}}" class="small">
+						</a>
+					</div>
+				
+				</li>
+				{{- end}}
+			</ul>
+			{{end}}
+		</div>
+
+		
+		{{end}}
+	</body>
+</html>
