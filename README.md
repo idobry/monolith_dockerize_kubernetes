@@ -1,0 +1,1 @@
+# monolith_dockerize_kubernetes
