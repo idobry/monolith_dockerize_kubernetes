@@ -27,6 +27,7 @@ type Index struct {
 
 type Link struct {
 	URL, Title, Img string
+	Count           int
 }
 
 type Image struct {
@@ -45,12 +46,12 @@ var images = map[string]*Image{
 		"https://ffp4g1ylyit3jdyti1hqcvtb-wpengine.netdna-ssl.com/firefox/files/2017/12/firefox-logo-300x310.png",
 		"https://cdn2.iconfinder.com/data/icons/squareplex/512/firefox.png",
 		0},
-	"chrom": {"CHROM",
+	"chrome": {"CHROME",
 		"https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
 		"http://flaticns.com/web-icons/google%20chrome.png",
 		0},
 	"explorer": {"EXPLORER",
-		"https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
+		"https://www.di.net.au/wp-content/uploads/2009/07/ie-logo.png",
 		"http://iconshow.me/media/images/social/flat-style-Metro-UI-Icons/Browser/png/512/MetroUI-Internet-Explorer.png",
 		0},
 }
@@ -78,6 +79,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 			URL:   "/image/" + name,
 			Title: img.Title,
 			Img:   img.Icon,
+			Count: p_db.GetVotes(name),
 		})
 	}
 	if err := indexTemplate.Execute(w, data); err != nil {
