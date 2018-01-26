@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html>
-	<head>
+	<head>		
 		<meta charset="utf-8">
 		<title>{{.Title}}</title>
 		<style>
+			img {
+                display: inline;
+			}
 			body {
 				font-family: sans-serif;
 			}
@@ -19,11 +22,17 @@
 				height: 50px;
     			width: 50px;
 				vertical-align: middle;
+				display: inline;
+			}
+			.progress-bar{
+				height: 10px;
+				background: #00cc00;
 			}
 		</style>
 	</head>
 	<body>
-		<h1>{{.Title}}</h1>
+		<div><h1>{{.Title}}</h1></div>
+		
 
 		{{block "content" .}}
 		<div id="content">
@@ -42,8 +51,14 @@
 					<div>
 						<a href="{{.URL}}">
 							<img src="{{.Img}}" title="{{.Title}}" alt="{{.Title}}" class="small">
+							
 						</a>
 					</div>
+					<div class="progress">
+    						<div 
+							class="progress-bar" style="width:{{.Count}}px">
+    						</div>
+ 					</div>
 				
 				</li>
 				{{- end}}
