@@ -30,7 +30,7 @@ type Link struct {
 	Count           int
 }
 
-type Image struct {
+type Browser struct {
 	Title string
 	URL   string
 	Icon  string
@@ -39,9 +39,9 @@ type Image struct {
 
 var indexTemplate = template.Must(template.ParseFiles("index.tmpl"))
 
-var imageTemplate = template.Must(template.Must(indexTemplate.Clone()).ParseFiles("image.tmpl"))
+var voteTemplate = template.Must(template.Must(indexTemplate.Clone()).ParseFiles("votes.tmpl"))
 
-var images = map[string]*Image{
+var browsers = map[string]*Browser{
 	"firefox": {"FIREFOX",
 		"https://ffp4g1ylyit3jdyti1hqcvtb-wpengine.netdna-ssl.com/firefox/files/2017/12/firefox-logo-300x310.png",
 		"https://cdn2.iconfinder.com/data/icons/squareplex/512/firefox.png",
@@ -64,7 +64,7 @@ var p_db, _ = postgres.NewDB("postgres", psqlInfo)
 
 func main() {
 	http.HandleFunc("/", indexHandler)
-	http.HandleFunc("/image/", imageHandler)
+	http.HandleFunc("/vote/", voteHandler)
 	log.Fatal(http.ListenAndServe("localhost:1234", nil))
 }
 
@@ -74,11 +74,11 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 		Title: "Best Browser",
 		Body:  "Vote the best internet browser",
 	}
-	for name, img := range images {
+	for name, browser := range browsers {
 		data.Links = append(data.Links, Link{
-			URL:   "/image/" + name,
-			Title: img.Title,
-			Img:   img.Icon,
+			URL:   "/vote/" + name,
+			Title: browser.Title,
+			Img:   browser.Icon,
 			Count: p_db.GetVotes(name),
 		})
 	}
@@ -87,17 +87,17 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// imageHandler is an HTTP handler that serves the image pages.
-func imageHandler(w http.ResponseWriter, r *http.Request) {
-	browser := strings.TrimPrefix(r.URL.Path, "/image/")
+// voteHandler is an HTTP handler that serves the image pages.
+func voteHandler(w http.ResponseWriter, r *http.Request) {
+	browser := strings.TrimPrefix(r.URL.Path, "/vote/")
 	p_db.InsertVote(browser)
-	images[browser].Count = p_db.GetVotes(browser)
-	data, ok := images[browser]
+	browsers[browser].Count = p_db.GetVotes(browser)
+	data, ok := browsers[browser]
 	if !ok {
 		http.NotFound(w, r)
 		return
 	}
-	if err := imageTemplate.Execute(w, data); err != nil {
+	if err := voteTemplate.Execute(w, data); err != nil {
 		log.Println(err)
 	}
 }
