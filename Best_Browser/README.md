@@ -35,4 +35,4 @@ INSERT INTO VOTES (firefox,chrom,explorer) VALUES (0,0,0);
 ```
 go run /path/to/files/main.go
 ```
-* In your browser navigate to "localost"
+* In your browser navigate to "localhost"
