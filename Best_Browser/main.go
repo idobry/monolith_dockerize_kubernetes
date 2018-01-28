@@ -13,8 +13,8 @@ import (
 const (
 	host     = "localhost"
 	port     = 5432
-	user     = "idob"
-	password = "idob"
+	user     = "bb"
+	password = "bb"
 	dbname   = "best_browser"
 )
 
