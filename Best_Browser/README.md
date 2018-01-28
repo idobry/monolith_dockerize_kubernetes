@@ -21,12 +21,12 @@ http {
 events {}
 ```
 * [Download](https://www.postgresql.org/download/) PostgresSQL
-* Create a user "bb" and password "bb"
-* Create a database named "best_browser"
+* Create a user "bb" with password "bb"
+* Create database:
 ```
 CREATE DATABASE best_browser;
 ```
-* Create a table named "votes":
+* Create table:
 ```
 CREATE TABLE VOTES ( FIREFOX INT ,CHROM INT, EXPLORER INT);
 INSERT INTO VOTES (firefox,chrom,explorer) VALUES (0,0,0);
