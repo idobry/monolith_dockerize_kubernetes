@@ -1,8 +1,8 @@
 # Best Browser
 
 ## Installation guide:
-* [Download]("https://golang.org/dl/") GO 
-* [Download]("https://www.nginx.com/resources/admin-guide/installing-nginx-open-source/") Nginx
+* [Download](https://golang.org/dl/) GO 
+* [Download](https://www.nginx.com/resources/admin-guide/installing-nginx-open-source/) Nginx
 * Copy the following nginx-server.conf
 ```
 http {
@@ -20,7 +20,7 @@ http {
 }
 events {}
 ```
-* [Download]("https://www.postgresql.org/download/") PostgresSQL
+* [Download](https://www.postgresql.org/download/) PostgresSQL
 * Create a user "bb" and password "bb"
 * Create a database named "best_browser"
 ```
