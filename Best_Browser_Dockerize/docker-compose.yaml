@@ -1,0 +1,51 @@
+version: '3.4'
+
+services:
+   nginx:
+      depends_on:
+       - frontend
+      image: idobry/nginx:0.0.1
+      ports:
+       - 80:80
+
+   frontend:
+      depends_on:
+       - postgres
+      image: idobry/frontend:0.0.1
+      expose:
+       - 1234
+
+   insertVote:
+      depends_on:
+       - postgres
+      image: idobry/insertvotes:0.0.3
+      environment:
+      - DB_PASS=bb
+      - DB_USER=bb
+      - DB_NAME=best_browser
+      - DB_HOST=postgres
+      expose:
+       - 3000
+
+   getVotes:
+      depends_on:
+       - postgres
+      image: idobry/getvotes:0.0.3
+      environment:
+      - DB_PASS=bb
+      - DB_USER=bb
+      - DB_NAME=best_browser
+      - DB_HOST=postgres
+      expose:
+       - 3000
+
+   postgres:
+      image: idobry/postgres:0.0.2
+      environment:
+      - DB_PASS=bb
+      - DB_USER=bb
+      - DB_NAME=best_browser
+      - DB_HOST=postgres
+      expose:
+       - 5432
+
